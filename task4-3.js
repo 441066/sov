@@ -19,16 +19,14 @@ let deepEqual = (objectOne, objectTwo) => {
                 objectTwoSorted[key] = objectTwo[key];
             });
 
+        let arrayKeysOne = Object.keys(objectOneSorted);
+        let arrayKeysTwo = Object.keys(objectTwoSorted);
+        let arrayValuesOne = Object.values(objectOneSorted);
+        let arrayValuesTwo = Object.values(objectTwoSorted);
         for (let i = 0; i < Object.keys(objectOneSorted).length; i++) {
             if (
-                objectOneSorted[Object.keys(objectOneSorted)[i]] !==
-                    objectTwoSorted[Object.keys(objectTwoSorted)[i]] ||
-                objectOneSorted[
-                    objectOneSorted[Object.keys(objectOneSorted)[i]]
-                ] !==
-                    objectTwoSorted[
-                        objectTwoSorted[Object.keys(objectTwoSorted)[i]]
-                    ]
+                arrayKeysOne[i] !== arrayKeysTwo[i] ||
+                arrayValuesOne[i] !== arrayValuesTwo[i]
             )
                 return false;
         }
