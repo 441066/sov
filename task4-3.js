@@ -19,19 +19,10 @@ let deepEqual = (objectOne, objectTwo) => {
                 objectTwoSorted[key] = objectTwo[key];
             });
 
-        let arrayKeysOne = Object.keys(objectOneSorted);
-        let arrayKeysTwo = Object.keys(objectTwoSorted);
-        let arrayValuesOne = Object.values(objectOneSorted);
-        let arrayValuesTwo = Object.values(objectTwoSorted);
-        for (let i = 0; i < Object.keys(objectOneSorted).length; i++) {
-            if (
-                arrayKeysOne[i] !== arrayKeysTwo[i] ||
-                arrayValuesOne[i] !== arrayValuesTwo[i]
-            )
-                return false;
-        }
+        return (
+            JSON.stringify(objectOneSorted) === JSON.stringify(objectTwoSorted)
+        );
     }
-    return true;
 };
 let Petya = { city: "Moscow", surname: "Bogdansky", age: 30 };
 let Nastya = { surname: "Bogdansky", city: "Moscow", age: 30 };
