@@ -5,19 +5,37 @@ let deepEqual = (objectOne, objectTwo) => {
     if (Object.keys(objectOne).length != Object.keys(objectTwo).length)
         return false;
     else {
-        for (let i = 0; i < Object.keys(objectOne).length; i++) {
+        const objectOneSorted = {};
+        Object.keys(objectOne)
+            .sort()
+            .forEach(function (key) {
+                objectOneSorted[key] = objectOne[key];
+            });
+
+        const objectTwoSorted = {};
+        Object.keys(objectTwo)
+            .sort()
+            .forEach(function (key) {
+                objectTwoSorted[key] = objectTwo[key];
+            });
+
+        for (let i = 0; i < Object.keys(objectOneSorted).length; i++) {
             if (
-                objectOne[Object.keys(objectOne)[i]] !==
-                    objectTwo[Object.keys(objectTwo)[i]] ||
-                objectOne[objectOne[Object.keys(objectOne)[i]]] !==
-                    objectTwo[objectTwo[Object.keys(objectTwo)[i]]]
+                objectOneSorted[Object.keys(objectOneSorted)[i]] !==
+                    objectTwoSorted[Object.keys(objectTwoSorted)[i]] ||
+                objectOneSorted[
+                    objectOneSorted[Object.keys(objectOneSorted)[i]]
+                ] !==
+                    objectTwoSorted[
+                        objectTwoSorted[Object.keys(objectTwoSorted)[i]]
+                    ]
             )
                 return false;
         }
     }
     return true;
 };
-let Petya = { surname: "Bogdansky", city: "Moscow", age: 30 };
-let Nastya = { surname: "Bogdansky", city: "Moscow", age: 29 };
+let Petya = { city: "Moscow", surname: "Bogdansky", age: 30 };
+let Nastya = { surname: "Bogdansky", city: "Moscow", age: 30 };
 console.log(deepEqual(Petya, Nastya));
 console.log(deepEqual(1, 1));
