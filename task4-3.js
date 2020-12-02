@@ -25,6 +25,6 @@ let deepEqual = (objectOne, objectTwo) => {
     }
 };
 let Petya = { city: "Moscow", surname: "Bogdansky", age: 30 };
-let Nastya = { surname: "Bogdansky", city: "Moscow", age: 30 };
+let Nastya = { surname: "Bogdansky", city: "Moscow", age: 29 };
 console.log(deepEqual(Petya, Nastya));
 console.log(deepEqual(1, 1));
