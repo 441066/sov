@@ -13,10 +13,12 @@ let fill = (arrayToFill, symbol, startIndex = 0, endIndex = 0) => {
     }
     startIndex = startIndex < 0 ? 0 : startIndex;
     endIndex = endIndex < arrayToFill.length ? endIndex : arrayToFill.length;
-
-    return arrayToFill.fill(symbol, startIndex, endIndex);
+    for (i = startIndex; i < endIndex; i++) {
+        arrayToFill[i] = symbol;
+    }
+    return arrayToFill;
 };
 
-console.log(fill(arrayOfJakob, "*", 0, 2));
+console.log(fill(arrayOfJakob, "*", 2, 4));
 
 console.log(fill([1, 2, 3, 5, 6, 8], "#", -2, 3));
