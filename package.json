@@ -1,0 +1,20 @@
+{
+  "name": "sov",
+  "version": "1.0.0",
+  "description": "",
+  "main": "task-g-1.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/441066/sov.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/441066/sov/issues"
+  },
+  "homepage": "https://github.com/441066/sov#readme"
+}
