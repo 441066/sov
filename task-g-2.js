@@ -18,5 +18,5 @@ let getUrl = (url, retries, timeout) => {
     };
 };
 
-let Body = getUrl("http://ya.ru");
+let Body = getUrl("http://ya.ru", 1, 1000);
 console.log(Body);
