@@ -13,10 +13,11 @@
 let getUrl = (url, retries, timeout) => {
     let request = new XMLHttpRequest();
     request.open("GET", url, true);
+    request.send();
     request.onload = () => {
         return request.responseText;
     };
 };
 
-let Body = getUrl("http://ya.ru", 1, 1000);
+let Body = getUrl("https://nozet.ru/?count=1", 1, 1000);
 console.log(Body);
