@@ -15,9 +15,10 @@ let getUrl = (url, retries, timeout) => {
     request.open("GET", url, true);
     request.send();
     request.onload = () => {
+        //console.log(request.responseText);
         return request.responseText;
     };
 };
 
 let Body = getUrl("https://nozet.ru/?count=1", 1, 1000);
-console.log(Body);
+console.log("BODY > ", Body);
