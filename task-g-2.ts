@@ -19,10 +19,8 @@ let getUrl = (url, retries, timeout) => {
         return request.responseText;
     };
     request.onerror = () => {
-        if (retriesDone < retries) {
-            //do request again
-        }
+        //do request again
     };
 };
 
-const body = getUrl("https://nozet.ru/?count=1", 1, 1000);
+const body = getUrl("https://nozet.ru/npm ?count=1", 1, 1000);
