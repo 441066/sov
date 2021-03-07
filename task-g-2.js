@@ -9,16 +9,20 @@
  * getUrl('http://ya.ru', 3,  10* 1000);
  * // -> тело ответа
  */
-
+let decoder = new TextDecoder();
 let getUrl = (url, retries, timeout) => {
     let request = new XMLHttpRequest();
     request.open("GET", url, true);
     request.send();
     request.onload = () => {
-        //console.log(request.responseText);
+        console.log(request.responseText);
         return request.responseText;
+    };
+    request.onerror = () => {
+        if (retriesDone < retries) {
+            //do request again
+        }
     };
 };
 
-let Body = getUrl("https://nozet.ru/?count=1", 1, 1000);
-console.log("BODY > ", Body);
+const body = getUrl("https://nozet.ru/?count=1", 1, 1000);
