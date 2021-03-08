@@ -15,7 +15,7 @@ type requestParams = {
     extends: { retries: number; timeout: number };
 };
 
-let getUrl = (params: requestParams) => {
+async function getUrl(params: requestParams) {
     const {
         url,
         extends: { retries, timeout },
@@ -25,19 +25,23 @@ let getUrl = (params: requestParams) => {
         return;
     }
 
-    fetch(url)
-        .then((response) => {
-            return response.text();
-        })
-        .then((data) => {
-            console.log(data);
-        });
-};
-const requestParams = {
+    try {
+        const response = await fetch(url);
+        if (response.ok) {
+            return await response.text();
+        }
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+const params = {
     url: "https://nozet.ru/?count=1",
     extends: {
         retries: 3,
         timeout: 2000,
     },
 };
-const body = getUrl(requestParams);
+
+let body = getUrl(params);
+console.log(body);
