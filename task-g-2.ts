@@ -6,7 +6,7 @@
  * @param {Number} timeout - время между попытками (мс).
  * @returns {String} body - итоговое тело ответа.
  * @example
- * getUrl('http://ya.ru', 3,  10* 1000);
+ * getUrl('http://ya.ru', {3,  10* 1000});
  * // -> тело ответа
  */
 
