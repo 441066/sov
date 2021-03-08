@@ -45,6 +45,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+function delay(ms) {
+    return new Promise(function (resolve) { return setTimeout(resolve, ms); });
+}
 function getUrl(params) {
     return __awaiter(this, void 0, void 0, function () {
         var url, _a, retries, timeout, err_1;
@@ -59,12 +62,21 @@ function getUrl(params) {
                 case 1:
                     _b.trys.push([1, 3, , 4]);
                     return [4 /*yield*/, fetch(url).then(function (response) {
-                            return response.text();
+                            if (response.ok) {
+                                return response.text();
+                            }
                         })];
                 case 2: return [2 /*return*/, _b.sent()];
                 case 3:
                     err_1 = _b.sent();
-                    console.error(err_1);
+                    if (retries > 0) {
+                        delay(timeout);
+                        retries -= 1;
+                        getUrl({ url: url, "extends": { retries: retries, timeout: timeout } });
+                    }
+                    else {
+                        console.error("Request failed and no tries left :(", err_1);
+                    }
                     return [3 /*break*/, 4];
                 case 4: return [2 /*return*/];
             }
@@ -79,4 +91,4 @@ var params = {
     }
 };
 var body = getUrl(params);
-console.log("body > ", body);
+console.log("body promise >", body);

@@ -15,8 +15,12 @@ type requestParams = {
     extends: { retries: number; timeout: number };
 };
 
+function delay(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 async function getUrl(params: requestParams) {
-    const {
+    let {
         url,
         extends: { retries, timeout },
     } = params;
@@ -27,10 +31,18 @@ async function getUrl(params: requestParams) {
 
     try {
         return await fetch(url).then((response) => {
-            return response.text();
+            if (response.ok) {
+                return response.text();
+            }
         });
     } catch (err) {
-        console.error(err);
+        if (retries > 0) {
+            delay(timeout);
+            retries -= 1;
+            getUrl({ url, extends: { retries, timeout } });
+        } else {
+            console.error("Request failed and no tries left :(", err);
+        }
     }
 }
 
@@ -43,4 +55,4 @@ const params = {
 };
 
 let body = getUrl(params);
-console.log("body > ", body);
+console.log("body promise >", body);
