@@ -25,29 +25,36 @@ async function getUrl(params: requestParams) {
         extends: { retries, timeout },
     } = params;
 
+    if (!url) {
+        return;
+    }
+
     if ((retries && !timeout) || (!retries && timeout)) {
         return;
     }
 
     try {
+        console.log("Tries left > ", retries);
         return await fetch(url).then((response) => {
             if (response.ok) {
                 return response.text();
+            } else {
+                throw new Error();
             }
         });
     } catch (err) {
+        console.log("Catched error, lets wait and retry");
         if (retries > 0) {
-            delay(timeout);
-            retries -= 1;
-            getUrl({ url, extends: { retries, timeout } });
-        } else {
-            console.error("Request failed and no tries left :(", err);
+            delay(timeout).then(() => {
+                retries -= 1;
+                getUrl({ url, extends: { retries, timeout } });
+            });
         }
     }
 }
 
 const params = {
-    url: "https://nozet.ru/?count=1",
+    url: "https://www.nozet.ru/?count=1",
     extends: {
         retries: 3,
         timeout: 2000,

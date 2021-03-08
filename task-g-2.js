@@ -55,27 +55,33 @@ function getUrl(params) {
             switch (_b.label) {
                 case 0:
                     url = params.url, _a = params["extends"], retries = _a.retries, timeout = _a.timeout;
+                    if (!url) {
+                        return [2 /*return*/];
+                    }
                     if ((retries && !timeout) || (!retries && timeout)) {
                         return [2 /*return*/];
                     }
                     _b.label = 1;
                 case 1:
                     _b.trys.push([1, 3, , 4]);
+                    console.log("Tries left > ", retries);
                     return [4 /*yield*/, fetch(url).then(function (response) {
                             if (response.ok) {
                                 return response.text();
+                            }
+                            else {
+                                throw new Error();
                             }
                         })];
                 case 2: return [2 /*return*/, _b.sent()];
                 case 3:
                     err_1 = _b.sent();
+                    console.log("Catched error, lets wait and retry");
                     if (retries > 0) {
-                        delay(timeout);
-                        retries -= 1;
-                        getUrl({ url: url, "extends": { retries: retries, timeout: timeout } });
-                    }
-                    else {
-                        console.error("Request failed and no tries left :(", err_1);
+                        delay(timeout).then(function () {
+                            retries -= 1;
+                            getUrl({ url: url, "extends": { retries: retries, timeout: timeout } });
+                        });
                     }
                     return [3 /*break*/, 4];
                 case 4: return [2 /*return*/];
@@ -84,7 +90,7 @@ function getUrl(params) {
     });
 }
 var params = {
-    url: "https://nozet.ru/?count=1",
+    url: "https://www.nozet.ru/?count=1",
     "extends": {
         retries: 3,
         timeout: 2000
