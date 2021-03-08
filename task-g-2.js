@@ -47,7 +47,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 function getUrl(params) {
     return __awaiter(this, void 0, void 0, function () {
-        var url, _a, retries, timeout, response, err_1;
+        var url, _a, retries, timeout, err_1;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
@@ -57,19 +57,16 @@ function getUrl(params) {
                     }
                     _b.label = 1;
                 case 1:
-                    _b.trys.push([1, 5, , 6]);
-                    return [4 /*yield*/, fetch(url)];
-                case 2:
-                    response = _b.sent();
-                    if (!response.ok) return [3 /*break*/, 4];
-                    return [4 /*yield*/, response.text()];
-                case 3: return [2 /*return*/, _b.sent()];
-                case 4: return [3 /*break*/, 6];
-                case 5:
+                    _b.trys.push([1, 3, , 4]);
+                    return [4 /*yield*/, fetch(url).then(function (response) {
+                            return response.text();
+                        })];
+                case 2: return [2 /*return*/, _b.sent()];
+                case 3:
                     err_1 = _b.sent();
                     console.error(err_1);
-                    return [3 /*break*/, 6];
-                case 6: return [2 /*return*/];
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
             }
         });
     });
@@ -82,4 +79,4 @@ var params = {
     }
 };
 var body = getUrl(params);
-console.log(body);
+console.log("body > ", body);

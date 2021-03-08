@@ -26,10 +26,9 @@ async function getUrl(params: requestParams) {
     }
 
     try {
-        const response = await fetch(url);
-        if (response.ok) {
-            return await response.text();
-        }
+        return await fetch(url).then((response) => {
+            return response.text();
+        });
     } catch (err) {
         console.error(err);
     }
@@ -44,4 +43,4 @@ const params = {
 };
 
 let body = getUrl(params);
-console.log(body);
+console.log("body > ", body);
